@@ -1,4 +1,4 @@
-package com.example.tugassbesarr
+package com.example.pharmatic
 
 import android.view.LayoutInflater
 import android.view.View
@@ -6,9 +6,10 @@ import android.view.ViewGroup
 import android.widget.Button
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
+import com.example.pharmatic.obat.Obat
 
 class TransaksiAdapter(
-    private val listObat: List<Obat>,
+    private var listObat: List<Obat>,
     private val onTambahClick: (Obat) -> Unit
 ) : RecyclerView.Adapter<TransaksiAdapter.TransaksiViewHolder>() {
 
@@ -26,11 +27,16 @@ class TransaksiAdapter(
     override fun onBindViewHolder(holder: TransaksiViewHolder, position: Int) {
         val obat = listObat[position]
         holder.tvNama.text = obat.nama
-        holder.tvHarga.text = obat.hargaDisplay
+        holder.tvHarga.text = "Rp ${obat.harga}"
         holder.btnTambah.setOnClickListener {
             onTambahClick(obat)
         }
     }
 
     override fun getItemCount(): Int = listObat.size
+
+    fun updateData(newList: List<Obat>) {
+        listObat = newList
+        notifyDataSetChanged()
+    }
 }

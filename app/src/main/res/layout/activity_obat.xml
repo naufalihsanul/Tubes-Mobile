@@ -2,39 +2,107 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/emerald_soft"
-    android:orientation="vertical"
-    android:padding="16dp">
+    android:background="@color/white"
+    android:orientation="vertical">
 
     <!-- Header Section (Disamakan dengan gaya Dashboard) -->
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="10dp"
-        android:layout_marginBottom="20dp"
-        android:orientation="vertical">
+        android:background="@drawable/bg_header_rounded"
+        android:orientation="vertical"
+        android:padding="24dp">
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Stok Obat"
-            android:textColor="@color/emerald_dark"
-            android:textSize="26sp"
+            android:layout_marginTop="8dp"
+            android:text="Obat"
+            android:textColor="@color/white"
+            android:textSize="24sp"
             android:textStyle="bold" />
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Data obat tersedia di apotek"
-            android:textColor="@color/text_gray"
-            android:textSize="14sp" />
+            android:text="Pilih obat untuk ditambahkan ke keranjang"
+            android:textColor="@color/emerald_soft"
+            android:textSize="12sp"
+            android:layout_marginTop="4dp" />
+
+        <!-- Pencarian + Scan Barcode -->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
+            android:gravity="center_vertical"
+            android:orientation="horizontal">
+
+            <EditText
+                android:id="@+id/etCari"
+                android:layout_width="0dp"
+                android:layout_height="50dp"
+                android:layout_weight="1"
+                android:background="@drawable/bg_search_bar"
+                android:drawableStart="@android:drawable/ic_menu_search"
+                android:drawablePadding="12dp"
+                android:hint="Cari nama obat..."
+                android:paddingStart="16dp"
+                android:paddingEnd="16dp"
+                android:textColorHint="@color/text_gray"
+                android:textSize="14sp" />
+
+            <ImageButton
+                android:id="@+id/btnScanBarcodeObat"
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                android:layout_marginStart="8dp"
+                android:background="@drawable/bg_search_bar"
+                android:src="@android:drawable/ic_menu_camera"
+                android:scaleType="centerInside"
+                android:contentDescription="Scan Barcode" />
+        </LinearLayout>
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:paddingHorizontal="24dp"
+        android:paddingTop="20dp"
+        android:paddingBottom="12dp"
+        android:orientation="horizontal">
+
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="Daftar Obat"
+            android:textColor="@color/black"
+            android:textSize="18sp"
+            android:textStyle="bold" />
+
+        <!-- Tombol Keranjang -->
+        <Button
+            android:id="@+id/btnKeranjang"
+            android:layout_width="wrap_content"
+            android:layout_height="40dp"
+            android:text="Lihat Keranjang"
+            android:backgroundTint="@color/emerald_dark"
+            android:textColor="@color/white"
+            android:textSize="12sp"
+            android:insetTop="0dp"
+            android:insetBottom="0dp"
+            android:textAllCaps="false"/>
     </LinearLayout>
 
     <!-- List Obat -->
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/rvObat"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:paddingHorizontal="8dp"
+        android:clipToPadding="false"
         android:scrollbars="none" />
 
 </LinearLayout>

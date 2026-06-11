@@ -2,13 +2,17 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools">
 
+    <uses-permission android:name="android.permission.POST_NOTIFICATIONS" />
+    <uses-permission android:name="android.permission.INTERNET" />
+
     <application
+        android:name=".PharmaTicApp"
         android:allowBackup="true"
         android:dataExtractionRules="@xml/data_extraction_rules"
         android:fullBackupContent="@xml/backup_rules"
-        android:icon="@mipmap/ic_launcher"
+        android:icon="@drawable/drugstore"
         android:label="@string/app_name"
-        android:roundIcon="@mipmap/ic_launcher_round"
+        android:roundIcon="@drawable/drugstore"
         android:supportsRtl="true"
         android:theme="@style/Theme.PharmaTic">
 
@@ -21,6 +25,10 @@
             android:exported="false" />
 
         <activity
+            android:name=".pembayaran.VerifikasiPembayaranActivity"
+            android:exported="false" />
+
+        <activity
             android:name=".keranjang.KeranjangActivity"
             android:exported="false" />
 
@@ -28,16 +36,33 @@
             android:name=".obat.ObatActivity"
             android:exported="false" />
 
-        <activity
-            android:name=".MainActivity"
-            android:exported="true">
+        <activity android:name=".MainActivity" android:exported="false" />
+        <activity android:name=".DashboardActivity" android:exported="false" />
+        <activity android:name=".AdminDashboardActivity" android:exported="false" />
+        <activity android:name=".TransaksiActivity" android:exported="false" />
+        <activity android:name=".HistoryActivity" android:exported="false" />
+        <activity android:name=".LaporanActivity" android:exported="false" />
+        <activity android:name=".KelolaKasirActivity" android:exported="false" />
+        <activity android:name=".KelolaSuplierActivity" android:exported="false" />
+        <activity android:name=".TambahKasirActivity" android:exported="false" />
+        <activity android:name=".TambahObatActivity" android:exported="false" />
+        
+        <!-- Activities baru -->
+        <activity android:name=".KelolaObatActivity" android:exported="false" />
+        <activity android:name=".EditObatActivity" android:exported="false" />
+        <activity android:name=".EditKasirActivity" android:exported="false" />
+        <activity android:name=".TambahSuplierActivity" android:exported="false" />
+        <activity android:name=".EditSuplierActivity" android:exported="false" />
+        <activity android:name=".DetailHistoryActivity" android:exported="false" />
 
+        <activity android:name=".LoginActivity" android:exported="false" />
+        <activity
+            android:name=".SplashActivity"
+            android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
-
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
-
         </activity>
 
     </application>

@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "171961654611",
+    "project_id": "pharmatic-4d841",
+    "storage_bucket": "pharmatic-4d841.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:171961654611:android:9975fe855a3d6f68db15a6",
+        "android_client_info": {
+          "package_name": "com.example.pharmatic"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDMlyL1keSbnSIYqTnjQyejnesqVlyiFuc"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

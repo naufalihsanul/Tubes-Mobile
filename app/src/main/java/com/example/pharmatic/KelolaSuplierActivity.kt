@@ -1,26 +1,40 @@
-package com.example.tugassbesarr
+package com.example.pharmatic
 
+import android.content.Intent
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
+import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.example.pharmatic.viewmodel.SuplierViewModel
+import com.google.android.material.floatingactionbutton.FloatingActionButton
 
 class KelolaSuplierActivity : AppCompatActivity() {
+    private lateinit var rvSuplier: RecyclerView
+    private lateinit var adapter: SuplierAdapter
+    private lateinit var suplierViewModel: SuplierViewModel
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_kelola_suplier)
 
-        val rvSuplier = findViewById<RecyclerView>(R.id.rvSuplier)
+        rvSuplier = findViewById(R.id.rvSuplier)
         rvSuplier.layoutManager = LinearLayoutManager(this)
 
-        // Data dummy daftar suplier
-        val dataSuplier = listOf(
-            Suplier("PT. Farmasi Jaya", "Jl. Raya Merdeka No. 10", "08123456789"),
-            Suplier("CV. Sehat Abadi", "Jl. Melati No. 5, Bandung", "08219988776"),
-            Suplier("Sumber Obat Mandiri", "Kawasan Industri Cikarang", "021-889977")
-        )
+        suplierViewModel = ViewModelProvider(this)[SuplierViewModel::class.java]
 
-        val adapter = SuplierAdapter(dataSuplier)
+        adapter = SuplierAdapter(emptyList()) { suplier ->
+            suplierViewModel.delete(suplier)
+        }
         rvSuplier.adapter = adapter
+
+        suplierViewModel.allSuplier.observe(this) { list ->
+            adapter.updateData(list)
+        }
+
+        val fabTambah = findViewById<FloatingActionButton>(R.id.fabTambahSuplier)
+        fabTambah.setOnClickListener {
+            startActivity(Intent(this, TambahSuplierActivity::class.java))
+        }
     }
 }

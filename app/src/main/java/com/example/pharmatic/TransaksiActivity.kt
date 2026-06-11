@@ -1,12 +1,18 @@
-package com.example.tugassbesarr
+package com.example.pharmatic
 
 import android.os.Bundle
 import android.widget.Button
 import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
+import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import android.content.Intent
+import com.example.pharmatic.keranjang.KeranjangManager
+import com.example.pharmatic.obat.Obat
+import com.example.pharmatic.pembayaran.PembayaranActivity
+import com.example.pharmatic.viewmodel.ObatViewModel
 
 class TransaksiActivity : AppCompatActivity() {
 
@@ -14,6 +20,8 @@ class TransaksiActivity : AppCompatActivity() {
     private var totalItem = 0
     private lateinit var tvTotalHarga: TextView
     private lateinit var tvTotalItem: TextView
+    private lateinit var obatViewModel: ObatViewModel
+    private lateinit var adapter: TransaksiAdapter
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -27,26 +35,20 @@ class TransaksiActivity : AppCompatActivity() {
         // Setup RecyclerView
         rvPilihObat.layoutManager = LinearLayoutManager(this)
 
-        // Data obat yang bisa dipilih (bisa disamakan dengan data di Stok Obat)
-        val dataObat = listOf(
-            Obat("Paracetamol", "Tablet", 50, 5000, "Rp 5.000"),
-            Obat("Amoxicillin", "Kapsul", 30, 12000, "Rp 12.000"),
-            Obat("Obat Batuk Cair", "Sirup", 15, 25000, "Rp 25.000"),
-            Obat("Promag", "Tablet", 40, 8500, "Rp 8.500")
-        )
-
-        val adapter = TransaksiAdapter(dataObat) { obat ->
+        adapter = TransaksiAdapter(emptyList()) { obat ->
             tambahKeKeranjang(obat)
         }
         rvPilihObat.adapter = adapter
 
+        obatViewModel = ViewModelProvider(this)[ObatViewModel::class.java]
+        obatViewModel.allObat.observe(this) { obatList ->
+            adapter.updateData(obatList)
+        }
+
         btnBayar.setOnClickListener {
-            if (totalItem > 0) {
-                Toast.makeText(this, "Pembayaran sebesar Rp $totalHarga berhasil!", Toast.LENGTH_LONG).show()
-                // Reset keranjang setelah bayar
-                totalHarga = 0
-                totalItem = 0
-                updateUI()
+            if (KeranjangManager.daftarKeranjang.isNotEmpty()) {
+                val intent = Intent(this, PembayaranActivity::class.java)
+                startActivity(intent)
             } else {
                 Toast.makeText(this, "Keranjang masih kosong", Toast.LENGTH_SHORT).show()
             }
@@ -56,6 +58,7 @@ class TransaksiActivity : AppCompatActivity() {
     private fun tambahKeKeranjang(obat: Obat) {
         totalItem += 1
         totalHarga += obat.harga
+        KeranjangManager.daftarKeranjang.add(obat)
         updateUI()
     }
 

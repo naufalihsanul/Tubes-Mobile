@@ -1,35 +1,40 @@
-package com.example.tugassbesarr
+package com.example.pharmatic
 
 import android.content.Intent
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
+import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.example.pharmatic.viewmodel.KasirViewModel
 import com.google.android.material.floatingactionbutton.FloatingActionButton
 
 class KelolaKasirActivity : AppCompatActivity() {
+    private lateinit var rvKasir: RecyclerView
+    private lateinit var adapter: KasirAdapter
+    private lateinit var kasirViewModel: KasirViewModel
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_kelola_kasir)
 
-        val rvKasir = findViewById<RecyclerView>(R.id.rvKasir)
-        val fabTambah = findViewById<FloatingActionButton>(R.id.fabTambahKasir)
-
+        rvKasir = findViewById(R.id.rvKasir)
         rvKasir.layoutManager = LinearLayoutManager(this)
 
-        // Data dummy daftar kasir
-        val dataKasir = listOf(
-            Kasir("Ardy", "kasir1"),
-            Kasir("Budi", "budi_kasir"),
-            Kasir("Siti Aminah", "siti22")
-        )
+        kasirViewModel = ViewModelProvider(this)[KasirViewModel::class.java]
 
-        val adapter = KasirAdapter(dataKasir)
+        adapter = KasirAdapter(emptyList()) { kasir ->
+            kasirViewModel.delete(kasir)
+        }
         rvKasir.adapter = adapter
 
+        kasirViewModel.allKasir.observe(this) { list ->
+            adapter.updateData(list)
+        }
+        
+        val fabTambah = findViewById<FloatingActionButton>(R.id.fabTambahKasir)
         fabTambah.setOnClickListener {
-            val intent = Intent(this, TambahKasirActivity::class.java)
-            startActivity(intent)
+            startActivity(Intent(this, TambahKasirActivity::class.java))
         }
     }
 }
