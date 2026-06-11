@@ -7,20 +7,30 @@ import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 
 object RetrofitClient {
-    // PENTING: Key Anda di local.properties adalah kunci PRODUCTION ("Mid-server-...")
-    // Jadi URL-nya harus diarahkan ke URL Production Core API, bukan Sandbox!
-    private const val BASE_URL = "https://api.midtrans.com/"
+    // Gunakan Sandbox untuk keperluan testing/Tugas Kuliah
+    private const val BASE_URL = "https://api.sandbox.midtrans.com/"
 
     private val client = OkHttpClient.Builder().apply {
         addInterceptor(Interceptor { chain ->
             val builder = chain.request().newBuilder()
             
-            // Kunci di local.properties ("TWlkLXNlcnZlci...") itu SUDAH bentuk Base64.
-            // Jangan di-encode lagi (jangan pakai Base64.encodeToString lagi).
-            // Langsung saja tempelkan!
-            val encodedKey = BuildConfig.MIDTRANS_API_KEY
-            builder.header("Authorization", "Basic $encodedKey")
+            // Ambil key dari BuildConfig
+            var apiKey = BuildConfig.MIDTRANS_API_KEY
+            // Jika user secara tidak sengaja memasukkan key yang sudah ter-encode Base64, kita decode dulu ke raw
+            if (!apiKey.startsWith("SB-Mid-server") && !apiKey.startsWith("Mid-server") && apiKey.length > 30) {
+                try {
+                    val decodedBytes = android.util.Base64.decode(apiKey, android.util.Base64.DEFAULT)
+                    apiKey = String(decodedBytes).replace(":", "")
+                } catch (e: Exception) {
+                    // Ignore
+                }
+            }
             
+            // Midtrans mensyaratkan format Basic Base64(ServerKey + ":")
+            val rawKey = "$apiKey:"
+            val encodedKey = android.util.Base64.encodeToString(rawKey.toByteArray(), android.util.Base64.NO_WRAP)
+            
+            builder.header("Authorization", "Basic $encodedKey")
             return@Interceptor chain.proceed(builder.build())
         })
     }.build()

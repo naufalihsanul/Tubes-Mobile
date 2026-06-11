@@ -16,54 +16,37 @@ class KeranjangActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_keranjang)
 
-        val rvKeranjang =
-            findViewById<RecyclerView>(R.id.rvKeranjang)
+        val rvKeranjang = findViewById<RecyclerView>(R.id.rvKeranjang)
+        val tvTotal = findViewById<TextView>(R.id.tvTotal)
+        val btnBayar = findViewById<Button>(R.id.btnBayar)
 
-        val tvTotal =
-            findViewById<TextView>(R.id.tvTotal)
+        rvKeranjang.layoutManager = LinearLayoutManager(this)
+        
+        val adapter = KeranjangAdapter(emptyList()) {
+            loadData(tvTotal, rvKeranjang)
+        }
+        rvKeranjang.adapter = adapter
 
-        val btnBayar =
-            findViewById<Button>(R.id.btnBayar)
+        loadData(tvTotal, rvKeranjang)
 
-        val grouped =
-            KeranjangManager.daftarKeranjang.groupBy { it.nama }
+        btnBayar.setOnClickListener {
+            startActivity(Intent(this, PembayaranActivity::class.java))
+        }
+    }
 
+    private fun loadData(tvTotal: TextView, rvKeranjang: RecyclerView) {
+        val grouped = KeranjangManager.daftarKeranjang.groupBy { it.nama }
         val data = mutableListOf<KeranjangItem>()
-
         var total = 0
 
         for ((nama, daftar) in grouped) {
-
             val qty = daftar.size
             val subtotal = qty * daftar[0].harga
-
             total += subtotal
-
-            data.add(
-                KeranjangItem(
-                    nama,
-                    qty,
-                    subtotal
-                )
-            )
+            data.add(KeranjangItem(nama, qty, subtotal))
         }
-
-        rvKeranjang.layoutManager =
-            LinearLayoutManager(this)
-
-        rvKeranjang.adapter =
-            KeranjangAdapter(data)
 
         tvTotal.text = "TOTAL : Rp $total"
-
-        btnBayar.setOnClickListener {
-
-            startActivity(
-                Intent(
-                    this,
-                    PembayaranActivity::class.java
-                )
-            )
-        }
+        (rvKeranjang.adapter as KeranjangAdapter).updateData(data)
     }
 }

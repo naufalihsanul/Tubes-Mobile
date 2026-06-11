@@ -29,4 +29,22 @@ object KeranjangManager {
             daftarKeranjang.addAll(savedList)
         }
     }
+
+    fun tambahObatByName(nama: String) {
+        val obat = daftarKeranjang.find { it.nama == nama }
+        if (obat != null) {
+            daftarKeranjang.add(obat)
+        }
+    }
+
+    fun kurangObat(nama: String) {
+        val index = daftarKeranjang.indexOfFirst { it.nama == nama }
+        if (index != -1) {
+            daftarKeranjang.removeAt(index)
+        }
+    }
+
+    fun hapusObat(nama: String) {
+        daftarKeranjang.removeAll { it.nama == nama }
+    }
 }
