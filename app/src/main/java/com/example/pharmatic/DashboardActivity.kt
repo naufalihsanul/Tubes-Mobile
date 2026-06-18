@@ -7,14 +7,7 @@ import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import androidx.cardview.widget.CardView
-import androidx.core.app.NotificationCompat
-import androidx.core.app.NotificationManagerCompat
-import android.app.NotificationChannel
-import android.app.NotificationManager
-import android.content.Context
-import android.content.pm.PackageManager
-import android.os.Build
-import androidx.core.app.ActivityCompat
+
 import androidx.lifecycle.ViewModelProvider
 import com.example.pharmatic.data.SessionManager
 import com.example.pharmatic.obat.Obat
@@ -105,7 +98,7 @@ class DashboardActivity : AppCompatActivity() {
                 .show()
         }
         
-        createNotificationChannel()
+
     }
 
     override fun onResume() {
@@ -121,51 +114,14 @@ class DashboardActivity : AppCompatActivity() {
         if (obatHabis.isNotEmpty()) {
             val namaObat = obatHabis.joinToString("\n- ") { "${it.nama} (Sisa: ${it.stok})" }
             val pesanSingkat = "Peringatan: ${obatHabis.size} jenis obat menipis!"
-            val pesanPanjang = "Peringatan: Stok obat menipis (Sisa <= 10) untuk: ${obatHabis.joinToString(", ") { it.nama }}"
             tvNotifText.text = pesanSingkat
             tvNotifText.setTextColor(android.graphics.Color.parseColor("#E74C3C")) // Merah/Bahaya
             
             currentNotifDetail = "Daftar obat yang perlu segera ditambah stoknya:\n\n- $namaObat"
-            tampilkanNotifikasi("Stok Obat Menipis!", pesanPanjang)
         } else {
             tvNotifText.text = "Notifikasi: Stok semua obat dalam kondisi aman."
             tvNotifText.setTextColor(android.graphics.Color.parseColor("#2ECC71")) // Hijau/Aman
             currentNotifDetail = "Semua stok obat masih di atas 10. Tidak ada tindakan yang diperlukan saat ini."
-        }
-    }
-
-    private fun createNotificationChannel() {
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-            val name = "Stok Obat"
-            val descriptionText = "Notifikasi stok obat menipis"
-            val importance = NotificationManager.IMPORTANCE_DEFAULT
-            val channel = NotificationChannel("STOK_CHANNEL", name, importance).apply {
-                description = descriptionText
-            }
-            val notificationManager: NotificationManager =
-                getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
-            notificationManager.createNotificationChannel(channel)
-        }
-    }
-
-    private fun tampilkanNotifikasi(title: String, message: String) {
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
-            if (ActivityCompat.checkSelfPermission(this, android.Manifest.permission.POST_NOTIFICATIONS) != PackageManager.PERMISSION_GRANTED) {
-                ActivityCompat.requestPermissions(this, arrayOf(android.Manifest.permission.POST_NOTIFICATIONS), 101)
-                return
-            }
-        }
-
-        val builder = NotificationCompat.Builder(this, "STOK_CHANNEL")
-            .setSmallIcon(android.R.drawable.ic_dialog_alert)
-            .setContentTitle(title)
-            .setContentText(message)
-            .setStyle(NotificationCompat.BigTextStyle().bigText(message))
-            .setPriority(NotificationCompat.PRIORITY_DEFAULT)
-            .setAutoCancel(true)
-
-        with(NotificationManagerCompat.from(this)) {
-            notify(1, builder.build())
         }
     }
 }

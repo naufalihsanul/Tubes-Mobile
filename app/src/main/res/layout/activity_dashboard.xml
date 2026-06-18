@@ -1,8 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:orientation="vertical"
     android:background="@color/white">
 
     <ScrollView
@@ -24,9 +25,10 @@
                 android:padding="24dp">
 
                 <!-- User Info & Avatar -->
-                <RelativeLayout
+                <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:orientation="horizontal"
                     android:layout_marginTop="16dp">
 
                     <LinearLayout
@@ -62,31 +64,14 @@
                         </LinearLayout>
                     </LinearLayout>
 
+                    <View android:layout_width="0dp" android:layout_height="match_parent" android:layout_weight="1"/>
+
                     <LinearLayout
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_alignParentEnd="true"
                         android:gravity="center_vertical"
                         android:orientation="horizontal">
                         
-                        <!-- Notification Icon -->
-                        <FrameLayout
-                            android:id="@+id/btnNotifikasi"
-                            android:layout_width="40dp"
-                            android:layout_height="40dp"
-                            android:layout_marginEnd="12dp"
-                            android:background="@drawable/bg_icon_rounded"
-                            android:clickable="true"
-                            android:focusable="true"
-                            android:foreground="?attr/selectableItemBackground">
-                            <ImageView
-                                android:layout_width="24dp"
-                                android:layout_height="24dp"
-                                android:layout_gravity="center"
-                                android:src="@android:drawable/ic_popup_reminder"
-                                app:tint="@color/black" />
-                        </FrameLayout>
-
                         <!-- Avatar -->
                         <androidx.cardview.widget.CardView
                             android:layout_width="40dp"
@@ -102,7 +87,7 @@
                                 android:padding="8dp"/>
                         </androidx.cardview.widget.CardView>
                     </LinearLayout>
-                </RelativeLayout>
+                </LinearLayout>
 
                 <!-- Quick Notifikasi (Sesuai Use Case: Notifikasi extends Dashboard) -->
                 <LinearLayout
@@ -196,7 +181,7 @@
                 android:paddingHorizontal="24dp"
                 android:paddingTop="24dp">
 
-                <RelativeLayout
+                <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content">
                     <TextView
@@ -206,7 +191,7 @@
                         android:textColor="@color/black"
                         android:textSize="18sp"
                         android:textStyle="bold" />
-                </RelativeLayout>
+                </LinearLayout>
 
                 <!-- Grid Menu -->
                 <LinearLayout
@@ -229,14 +214,14 @@
                             android:orientation="horizontal"
                             android:padding="12dp"
                             android:gravity="center_vertical">
-                            <FrameLayout
+                            <LinearLayout
                                 android:layout_width="40dp"
                                 android:layout_height="40dp"
+                                android:gravity="center"
                                 android:background="@drawable/bg_icon_rounded">
                                 <ImageView
                                     android:layout_width="24dp"
                                     android:layout_height="24dp"
-                                    android:layout_gravity="center"
                                     android:src="@drawable/drugs"/>
                             </FrameLayout>
                             <TextView
@@ -264,14 +249,14 @@
                             android:orientation="horizontal"
                             android:padding="12dp"
                             android:gravity="center_vertical">
-                            <FrameLayout
+                            <LinearLayout
                                 android:layout_width="40dp"
                                 android:layout_height="40dp"
+                                android:gravity="center"
                                 android:background="@drawable/bg_icon_rounded">
                                 <ImageView
                                     android:layout_width="24dp"
                                     android:layout_height="24dp"
-                                    android:layout_gravity="center"
                                     android:src="@drawable/bill"/>
                             </FrameLayout>
                             <TextView
@@ -299,17 +284,17 @@
                             android:orientation="horizontal"
                             android:padding="12dp"
                             android:gravity="center_vertical">
-                            <FrameLayout
+                            <LinearLayout
                                 android:layout_width="40dp"
                                 android:layout_height="40dp"
+                                android:gravity="center"
                                 android:background="#FCEAEA">
                                 <ImageView
                                     android:layout_width="24dp"
                                     android:layout_height="24dp"
-                                    android:layout_gravity="center"
                                     android:src="@android:drawable/ic_lock_power_off"
                                     app:tint="#E74C3C"/>
-                            </FrameLayout>
+                            </LinearLayout>
                             <TextView
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
@@ -332,7 +317,7 @@
                 android:paddingHorizontal="24dp"
                 android:paddingTop="16dp">
 
-                <RelativeLayout
+                <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content">
                     <TextView
@@ -342,7 +327,7 @@
                         android:textColor="@color/black"
                         android:textSize="18sp"
                         android:textStyle="bold" />
-                </RelativeLayout>
+                </LinearLayout>
 
                 <!-- Horizontal scroll or cards -->
                 <LinearLayout
@@ -419,4 +404,4 @@
         </LinearLayout>
     </ScrollView>
 
-</RelativeLayout>
+</LinearLayout>
