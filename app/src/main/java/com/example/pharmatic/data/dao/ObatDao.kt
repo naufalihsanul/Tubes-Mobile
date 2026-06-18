@@ -2,7 +2,7 @@ package com.example.pharmatic.data.dao
 
 import androidx.lifecycle.LiveData
 import androidx.room.*
-import com.example.pharmatic.obat.Obat
+import com.example.pharmatic.model.Obat
 
 @Dao
 interface ObatDao {

@@ -1,5 +1,7 @@
 package com.example.pharmatic.obat
 
+import com.example.pharmatic.model.Obat
+
 import android.net.Uri
 import android.view.LayoutInflater
 import android.view.View

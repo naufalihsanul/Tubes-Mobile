@@ -5,7 +5,7 @@ import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.viewModelScope
 import com.example.pharmatic.PharmaTicApp
-import com.example.pharmatic.Suplier
+import com.example.pharmatic.model.Suplier
 import kotlinx.coroutines.launch
 
 class SuplierViewModel(application: Application) : AndroidViewModel(application) {

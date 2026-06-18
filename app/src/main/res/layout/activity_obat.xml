@@ -30,38 +30,20 @@
             android:textSize="12sp"
             android:layout_marginTop="4dp" />
 
-        <!-- Pencarian + Scan Barcode -->
-        <LinearLayout
+        <!-- Pencarian -->
+        <EditText
+            android:id="@+id/etCari"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="50dp"
             android:layout_marginTop="20dp"
-            android:gravity="center_vertical"
-            android:orientation="horizontal">
-
-            <EditText
-                android:id="@+id/etCari"
-                android:layout_width="0dp"
-                android:layout_height="50dp"
-                android:layout_weight="1"
-                android:background="@drawable/bg_search_bar"
-                android:drawableStart="@android:drawable/ic_menu_search"
-                android:drawablePadding="12dp"
-                android:hint="Cari nama obat..."
-                android:paddingStart="16dp"
-                android:paddingEnd="16dp"
-                android:textColorHint="@color/text_gray"
-                android:textSize="14sp" />
-
-            <ImageButton
-                android:id="@+id/btnScanBarcodeObat"
-                android:layout_width="50dp"
-                android:layout_height="50dp"
-                android:layout_marginStart="8dp"
-                android:background="@drawable/bg_search_bar"
-                android:src="@android:drawable/ic_menu_camera"
-                android:scaleType="centerInside"
-                android:contentDescription="Scan Barcode" />
-        </LinearLayout>
+            android:background="@drawable/bg_search_bar"
+            android:drawableStart="@android:drawable/ic_menu_search"
+            android:drawablePadding="12dp"
+            android:hint="Cari nama obat..."
+            android:paddingStart="16dp"
+            android:paddingEnd="16dp"
+            android:textColorHint="@color/text_gray"
+            android:textSize="14sp" />
     </LinearLayout>
 
     <LinearLayout

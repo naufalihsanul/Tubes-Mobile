@@ -4,7 +4,7 @@ import android.app.Application
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.viewModelScope
-import com.example.pharmatic.Kasir
+import com.example.pharmatic.model.Kasir
 import com.example.pharmatic.PharmaTicApp
 import kotlinx.coroutines.launch
 

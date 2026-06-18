@@ -1,5 +1,7 @@
 package com.example.pharmatic.struk
 
+import com.example.pharmatic.model.TransaksiDetail
+
 import android.content.Intent
 import android.os.Bundle
 import android.widget.Button
@@ -9,7 +11,7 @@ import androidx.lifecycle.ViewModelProvider
 import com.example.pharmatic.MainActivity
 import com.example.pharmatic.R
 import com.example.pharmatic.keranjang.KeranjangManager
-import com.example.pharmatic.Transaksi
+import com.example.pharmatic.model.Transaksi
 import com.example.pharmatic.viewmodel.ObatViewModel
 import com.example.pharmatic.viewmodel.TransaksiViewModel
 import java.text.SimpleDateFormat
@@ -83,12 +85,12 @@ class StrukActivity : AppCompatActivity() {
                 kasirNama = sessionManager.getUsername()
             )
             
-            val detailsList = mutableListOf<com.example.pharmatic.TransaksiDetail>()
+            val detailsList = mutableListOf<com.example.pharmatic.model.TransaksiDetail>()
             for ((nama, daftar) in grouped) {
                 val qty = daftar.size
                 val subtotal = qty * daftar[0].harga
                 detailsList.add(
-                    com.example.pharmatic.TransaksiDetail(
+                    com.example.pharmatic.model.TransaksiDetail(
                         transaksiId = idTrx,
                         namaObat = nama,
                         hargaSatuan = daftar[0].harga,

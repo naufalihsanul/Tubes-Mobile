@@ -4,16 +4,16 @@ import android.content.Context
 import androidx.room.Database
 import androidx.room.Room
 import androidx.room.RoomDatabase
-import com.example.pharmatic.Kasir
-import com.example.pharmatic.Suplier
-import com.example.pharmatic.Transaksi
-import com.example.pharmatic.TransaksiDetail
+import com.example.pharmatic.model.Kasir
+import com.example.pharmatic.model.Suplier
+import com.example.pharmatic.model.Transaksi
+import com.example.pharmatic.model.TransaksiDetail
 import com.example.pharmatic.data.dao.KasirDao
 import com.example.pharmatic.data.dao.ObatDao
 import com.example.pharmatic.data.dao.SuplierDao
 import com.example.pharmatic.data.dao.TransaksiDao
 import com.example.pharmatic.data.dao.TransaksiDetailDao
-import com.example.pharmatic.obat.Obat
+import com.example.pharmatic.model.Obat
 
 @Database(
     entities = [Obat::class, Kasir::class, Suplier::class, Transaksi::class, TransaksiDetail::class],

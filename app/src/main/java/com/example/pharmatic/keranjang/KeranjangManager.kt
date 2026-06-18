@@ -1,7 +1,9 @@
 package com.example.pharmatic.keranjang
 
+import com.example.pharmatic.model.KeranjangItem
+
 import android.content.Context
-import com.example.pharmatic.obat.Obat
+import com.example.pharmatic.model.Obat
 import com.google.gson.Gson
 import com.google.gson.reflect.TypeToken
 

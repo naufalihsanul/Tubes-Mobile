@@ -1,5 +1,7 @@
 package com.example.pharmatic.keranjang
 
+import com.example.pharmatic.model.KeranjangItem
+
 import android.content.Intent
 import android.os.Bundle
 import android.widget.Button

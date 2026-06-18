@@ -1,16 +1,16 @@
 package com.example.pharmatic.data.repository
 
 import androidx.lifecycle.LiveData
-import com.example.pharmatic.Kasir
-import com.example.pharmatic.Suplier
-import com.example.pharmatic.Transaksi
+import com.example.pharmatic.model.Kasir
+import com.example.pharmatic.model.Suplier
+import com.example.pharmatic.model.Transaksi
 import com.example.pharmatic.data.dao.KasirDao
 import com.example.pharmatic.data.dao.ObatDao
 import com.example.pharmatic.data.dao.SuplierDao
 import com.example.pharmatic.data.dao.TransaksiDao
 import com.example.pharmatic.data.dao.TransaksiDetailDao
-import com.example.pharmatic.obat.Obat
-import com.example.pharmatic.TransaksiDetail
+import com.example.pharmatic.model.Obat
+import com.example.pharmatic.model.TransaksiDetail
 
 class PharmaTicRepository(
     private val obatDao: ObatDao,

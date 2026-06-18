@@ -1,5 +1,7 @@
 package com.example.pharmatic.keranjang
 
+import com.example.pharmatic.model.KeranjangItem
+
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup

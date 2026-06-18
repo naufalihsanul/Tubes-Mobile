@@ -1,10 +1,10 @@
 package com.example.pharmatic.data
 
-import com.example.pharmatic.Kasir
-import com.example.pharmatic.Suplier
-import com.example.pharmatic.Transaksi
+import com.example.pharmatic.model.Kasir
+import com.example.pharmatic.model.Suplier
+import com.example.pharmatic.model.Transaksi
 import com.example.pharmatic.data.database.PharmaTicDatabase
-import com.example.pharmatic.obat.Obat
+import com.example.pharmatic.model.Obat
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
 

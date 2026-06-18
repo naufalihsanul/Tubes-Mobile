@@ -36,28 +36,26 @@
             android:name=".obat.ObatActivity"
             android:exported="false" />
 
-        <activity android:name=".MainActivity" android:exported="false" />
         <activity android:name=".DashboardActivity" android:exported="false" />
-        <activity android:name=".AdminDashboardActivity" android:exported="false" />
-        <activity android:name=".TransaksiActivity" android:exported="false" />
-        <activity android:name=".HistoryActivity" android:exported="false" />
-        <activity android:name=".LaporanActivity" android:exported="false" />
-        <activity android:name=".KelolaKasirActivity" android:exported="false" />
-        <activity android:name=".KelolaSuplierActivity" android:exported="false" />
-        <activity android:name=".TambahKasirActivity" android:exported="false" />
-        <activity android:name=".TambahObatActivity" android:exported="false" />
+        <activity android:name=".admin.AdminDashboardActivity" android:exported="false" />
+        <activity android:name=".history.HistoryActivity" android:exported="false" />
+        <activity android:name=".admin.LaporanActivity" android:exported="false" />
+        <activity android:name=".kasir.KelolaKasirActivity" android:exported="false" />
+        <activity android:name=".suplier.KelolaSuplierActivity" android:exported="false" />
+        <activity android:name=".kasir.TambahKasirActivity" android:exported="false" />
+        <activity android:name=".obat.TambahObatActivity" android:exported="false" />
         
         <!-- Activities baru -->
-        <activity android:name=".KelolaObatActivity" android:exported="false" />
-        <activity android:name=".EditObatActivity" android:exported="false" />
-        <activity android:name=".EditKasirActivity" android:exported="false" />
-        <activity android:name=".TambahSuplierActivity" android:exported="false" />
-        <activity android:name=".EditSuplierActivity" android:exported="false" />
-        <activity android:name=".DetailHistoryActivity" android:exported="false" />
+        <activity android:name=".obat.KelolaObatActivity" android:exported="false" />
+        <activity android:name=".obat.EditObatActivity" android:exported="false" />
+        <activity android:name=".kasir.EditKasirActivity" android:exported="false" />
+        <activity android:name=".suplier.TambahSuplierActivity" android:exported="false" />
+        <activity android:name=".suplier.EditSuplierActivity" android:exported="false" />
+        <activity android:name=".history.DetailHistoryActivity" android:exported="false" />
 
-        <activity android:name=".LoginActivity" android:exported="false" />
+        <activity android:name=".auth.LoginActivity" android:exported="false" />
         <activity
-            android:name=".SplashActivity"
+            android:name=".auth.SplashActivity"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

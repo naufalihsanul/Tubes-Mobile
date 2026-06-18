@@ -1,5 +1,9 @@
 package com.example.pharmatic
 
+import com.example.pharmatic.auth.LoginActivity
+
+import com.example.pharmatic.history.HistoryActivity
+
 import android.content.Intent
 import android.os.Bundle
 import android.widget.TextView
@@ -10,7 +14,7 @@ import androidx.cardview.widget.CardView
 
 import androidx.lifecycle.ViewModelProvider
 import com.example.pharmatic.data.SessionManager
-import com.example.pharmatic.obat.Obat
+import com.example.pharmatic.model.Obat
 import com.example.pharmatic.obat.ObatActivity
 import com.example.pharmatic.viewmodel.ObatViewModel
 import com.example.pharmatic.viewmodel.TransaksiViewModel

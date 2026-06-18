@@ -1,5 +1,7 @@
 package com.example.pharmatic.obat
 
+import com.example.pharmatic.model.Obat
+
 import android.content.Intent
 import android.os.Bundle
 import android.text.Editable
@@ -15,9 +17,6 @@ import com.example.pharmatic.R
 import com.example.pharmatic.keranjang.KeranjangActivity
 import com.example.pharmatic.keranjang.KeranjangManager
 import com.example.pharmatic.viewmodel.ObatViewModel
-import android.widget.ImageButton
-import com.journeyapps.barcodescanner.ScanContract
-import com.journeyapps.barcodescanner.ScanOptions
 
 class ObatActivity : AppCompatActivity() {
 
@@ -26,22 +25,7 @@ class ObatActivity : AppCompatActivity() {
     private var fullObatList: List<Obat> = emptyList()
     private lateinit var adapter: ObatAdapter
 
-    // Barcode Scanner Launcher
-    private val barcodeLauncher = registerForActivityResult(ScanContract()) { result ->
-        if (result.contents != null) {
-            val scannedBarcode = result.contents
-            val obatDitemukan = fullObatList.find { it.barcode == scannedBarcode }
-            
-            if (obatDitemukan != null) {
-                // Langsung tambahkan ke keranjang
-                KeranjangManager.daftarKeranjang.add(obatDitemukan)
-                KeranjangManager.saveCart(this)
-                Toast.makeText(this, "✅ ${obatDitemukan.nama} ditambahkan ke keranjang", Toast.LENGTH_SHORT).show()
-            } else {
-                Toast.makeText(this, "❌ Obat dengan barcode $scannedBarcode tidak ditemukan", Toast.LENGTH_LONG).show()
-            }
-        }
-    }
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -75,17 +59,7 @@ class ObatActivity : AppCompatActivity() {
             override fun afterTextChanged(s: Editable?) {}
         })
 
-        // Event Scan Barcode Kasir
-        val btnScanBarcodeObat = findViewById<ImageButton>(R.id.btnScanBarcodeObat)
-        btnScanBarcodeObat.setOnClickListener {
-            val options = ScanOptions()
-            options.setDesiredBarcodeFormats(ScanOptions.ALL_CODE_TYPES)
-            options.setPrompt("Arahkan kamera ke barcode obat")
-            options.setCameraId(0) // Kamera belakang
-            options.setBeepEnabled(true)
-            options.setBarcodeImageEnabled(true)
-            barcodeLauncher.launch(options)
-        }
+
 
         val btnKeranjang = findViewById<Button>(R.id.btnKeranjang)
         btnKeranjang.setOnClickListener {

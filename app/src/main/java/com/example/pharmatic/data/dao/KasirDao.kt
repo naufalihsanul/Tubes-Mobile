@@ -2,7 +2,7 @@ package com.example.pharmatic.data.dao
 
 import androidx.lifecycle.LiveData
 import androidx.room.*
-import com.example.pharmatic.Kasir
+import com.example.pharmatic.model.Kasir
 
 @Dao
 interface KasirDao {
