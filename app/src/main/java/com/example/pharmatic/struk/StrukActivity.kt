@@ -8,7 +8,6 @@ import android.widget.Button
 import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.ViewModelProvider
-import com.example.pharmatic.MainActivity
 import com.example.pharmatic.R
 import com.example.pharmatic.keranjang.KeranjangManager
 import com.example.pharmatic.model.Transaksi
