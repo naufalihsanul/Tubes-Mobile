@@ -10,7 +10,7 @@ interface MidtransApi {
         "Accept: application/json",
         "Content-Type: application/json"
     )
-    @POST("v2/charge")
+    @POST("snap/v1/transactions")
     fun createTransaction(
         @Body request: MidtransRequest
     ): Call<MidtransResponse>

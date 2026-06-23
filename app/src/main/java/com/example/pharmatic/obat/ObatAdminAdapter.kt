@@ -46,14 +46,21 @@ class ObatAdminAdapter(
             holder.expiredDate.text = "ED: ${obat.expiredDate}"
         }
 
-        if (obat.imageUri.isNullOrEmpty()) {
-            holder.thumbnail.setImageResource(R.drawable.drugs)
-        } else {
+        // Muat gambar obat dengan aman
+        var imageLoaded = false
+        if (!obat.imageUri.isNullOrEmpty()) {
             try {
-                holder.thumbnail.setImageURI(Uri.parse(obat.imageUri))
-            } catch (e: Exception) {
-                holder.thumbnail.setImageResource(R.drawable.drugs)
-            }
+                val uri = Uri.parse(obat.imageUri)
+                val file = java.io.File(uri.path ?: "")
+                if (file.exists()) {
+                    holder.thumbnail.setImageURI(null)
+                    holder.thumbnail.setImageURI(uri)
+                    imageLoaded = true
+                }
+            } catch (_: Exception) { }
+        }
+        if (!imageLoaded) {
+            holder.thumbnail.setImageResource(R.drawable.drugs)
         }
 
         holder.btnEdit.setOnClickListener {

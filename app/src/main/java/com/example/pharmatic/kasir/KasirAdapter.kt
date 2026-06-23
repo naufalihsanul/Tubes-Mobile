@@ -37,11 +37,23 @@ class KasirAdapter(
         holder.tvNama.text = kasir.nama
         holder.tvUsername.text = "@${kasir.username}"
         
+        // Muat foto kasir dengan aman
+        var fotoLoaded = false
         if (!kasir.fotoUri.isNullOrEmpty()) {
-            holder.ivFoto.setImageURI(Uri.parse(kasir.fotoUri))
-            holder.ivFoto.layoutParams.width = ViewGroup.LayoutParams.MATCH_PARENT
-            holder.ivFoto.layoutParams.height = ViewGroup.LayoutParams.MATCH_PARENT
-        } else {
+            try {
+                val uri = Uri.parse(kasir.fotoUri)
+                val file = java.io.File(uri.path ?: "")
+                if (file.exists()) {
+                    holder.ivFoto.setImageURI(null) // Reset dulu untuk refresh
+                    holder.ivFoto.setImageURI(uri)
+                    holder.ivFoto.layoutParams.width = ViewGroup.LayoutParams.MATCH_PARENT
+                    holder.ivFoto.layoutParams.height = ViewGroup.LayoutParams.MATCH_PARENT
+                    fotoLoaded = true
+                }
+            } catch (_: Exception) { }
+        }
+        
+        if (!fotoLoaded) {
             holder.ivFoto.setImageResource(R.drawable.grouping)
             // Restore default icon size if no photo
             holder.ivFoto.layoutParams.width = holder.itemView.context.resources.displayMetrics.density.toInt() * 28

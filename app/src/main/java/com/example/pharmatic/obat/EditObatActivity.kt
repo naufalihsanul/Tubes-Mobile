@@ -20,7 +20,9 @@ import com.example.pharmatic.model.Obat
 import com.example.pharmatic.viewmodel.ObatViewModel
 import com.example.pharmatic.viewmodel.SuplierViewModel
 
+import java.io.File
 import java.util.Calendar
+import java.util.UUID
 
 class EditObatActivity : AppCompatActivity() {
     private lateinit var obatViewModel: ObatViewModel
@@ -32,9 +34,13 @@ class EditObatActivity : AppCompatActivity() {
     // Image Picker Launcher
     private val pickImageLauncher = registerForActivityResult(ActivityResultContracts.GetContent()) { uri: Uri? ->
         if (uri != null) {
-            selectedImageUri = uri
-            val ivPreview = findViewById<ImageView>(R.id.ivPreviewObatEdit)
-            ivPreview.setImageURI(uri)
+            // Salin gambar ke penyimpanan internal agar tetap bisa diakses setelah restart
+            val savedUri = copyImageToInternalStorage(uri)
+            if (savedUri != null) {
+                selectedImageUri = savedUri
+                val ivPreview = findViewById<ImageView>(R.id.ivPreviewObatEdit)
+                ivPreview.setImageURI(savedUri)
+            }
         }
     }
 
@@ -99,7 +105,11 @@ class EditObatActivity : AppCompatActivity() {
             // Set Image
             if (!it.imageUri.isNullOrEmpty()) {
                 selectedImageUri = Uri.parse(it.imageUri)
-                ivPreview.setImageURI(selectedImageUri)
+                try {
+                    ivPreview.setImageURI(selectedImageUri)
+                } catch (e: Exception) {
+                    ivPreview.setImageResource(R.drawable.drugs)
+                }
             }
         }
 
@@ -172,6 +182,22 @@ class EditObatActivity : AppCompatActivity() {
                 Toast.makeText(this, "Obat berhasil diupdate!", Toast.LENGTH_SHORT).show()
                 finish()
             }
+        }
+    }
+
+    private fun copyImageToInternalStorage(sourceUri: Uri): Uri? {
+        return try {
+            val inputStream = contentResolver.openInputStream(sourceUri) ?: return null
+            val fileName = "obat_${UUID.randomUUID()}.jpg"
+            val file = File(filesDir, fileName)
+            file.outputStream().use { outputStream ->
+                inputStream.copyTo(outputStream)
+            }
+            inputStream.close()
+            Uri.fromFile(file)
+        } catch (e: Exception) {
+            e.printStackTrace()
+            null
         }
     }
 }

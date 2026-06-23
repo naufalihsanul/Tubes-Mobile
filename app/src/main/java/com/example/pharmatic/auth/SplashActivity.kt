@@ -4,6 +4,8 @@ import com.example.pharmatic.DashboardActivity
 
 import com.example.pharmatic.R
 
+import com.example.pharmatic.admin.AdminDashboardActivity
+
 import android.content.Intent
 import android.os.Bundle
 import android.os.Handler
@@ -21,8 +23,12 @@ class SplashActivity : AppCompatActivity() {
 
         Handler(Looper.getMainLooper()).postDelayed({
             if (sessionManager.cekLogin()) {
-                val intent = Intent(this, DashboardActivity::class.java)
-                startActivity(intent)
+                val role = sessionManager.getRole()
+                if (role == "admin") {
+                    startActivity(Intent(this, AdminDashboardActivity::class.java))
+                } else {
+                    startActivity(Intent(this, DashboardActivity::class.java))
+                }
             } else {
                 val intent = Intent(this, LoginActivity::class.java)
                 startActivity(intent)
@@ -31,3 +37,4 @@ class SplashActivity : AppCompatActivity() {
         }, 2000) // 2 detik
     }
 }
+

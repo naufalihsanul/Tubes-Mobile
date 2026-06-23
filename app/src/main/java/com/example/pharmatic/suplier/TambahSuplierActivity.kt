@@ -15,6 +15,8 @@ import com.example.pharmatic.viewmodel.SuplierViewModel
 import android.net.Uri
 import android.widget.ImageView
 import androidx.activity.result.contract.ActivityResultContracts
+import java.io.File
+import java.util.UUID
 
 class TambahSuplierActivity : AppCompatActivity() {
     private lateinit var suplierViewModel: SuplierViewModel
@@ -22,9 +24,13 @@ class TambahSuplierActivity : AppCompatActivity() {
 
     private val pickLogoLauncher = registerForActivityResult(ActivityResultContracts.GetContent()) { uri: Uri? ->
         if (uri != null) {
-            selectedLogoUri = uri
-            val ivLogo = findViewById<ImageView>(R.id.ivLogoSuplier)
-            ivLogo.setImageURI(uri)
+            // Salin gambar ke penyimpanan internal agar tetap bisa diakses setelah restart
+            val savedUri = copyImageToInternalStorage(uri)
+            if (savedUri != null) {
+                selectedLogoUri = savedUri
+                val ivLogo = findViewById<ImageView>(R.id.ivLogoSuplier)
+                ivLogo.setImageURI(savedUri)
+            }
         }
     }
 
@@ -65,6 +71,22 @@ class TambahSuplierActivity : AppCompatActivity() {
             } else {
                 Toast.makeText(this, "Mohon lengkapi data wajib (Nama, Alamat, Telp)", Toast.LENGTH_SHORT).show()
             }
+        }
+    }
+
+    private fun copyImageToInternalStorage(sourceUri: Uri): Uri? {
+        return try {
+            val inputStream = contentResolver.openInputStream(sourceUri) ?: return null
+            val fileName = "suplier_${UUID.randomUUID()}.jpg"
+            val file = File(filesDir, fileName)
+            file.outputStream().use { outputStream ->
+                inputStream.copyTo(outputStream)
+            }
+            inputStream.close()
+            Uri.fromFile(file)
+        } catch (e: Exception) {
+            e.printStackTrace()
+            null
         }
     }
 }

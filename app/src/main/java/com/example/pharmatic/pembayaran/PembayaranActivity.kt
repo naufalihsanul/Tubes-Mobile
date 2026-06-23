@@ -109,7 +109,7 @@ class PembayaranActivity : AppCompatActivity() {
             btnBayar.visibility = View.GONE
             btnBayarQris.visibility = View.GONE
 
-            // Tampilkan container QR
+            // Tampilkan container
             cvQrisContainer.visibility = View.VISIBLE
             pbLoadingQr.visibility = View.VISIBLE
             ivQrCode.visibility = View.GONE
@@ -132,15 +132,16 @@ class PembayaranActivity : AppCompatActivity() {
                     ) {
                         pbLoadingQr.visibility = View.GONE
                         if (response.isSuccessful) {
-                            val qrUrl = response.body()?.actions?.find { it.name == "generate-qr-code" }?.url
-                            if (qrUrl != null) {
-                                ivQrCode.visibility = View.VISIBLE
-                                // Muat gambar QRIS dengan Glide
-                                com.bumptech.glide.Glide.with(this@PembayaranActivity)
-                                    .load(qrUrl)
-                                    .into(ivQrCode)
+                            val redirectUrl = response.body()?.redirectUrl
+                            if (redirectUrl != null) {
+                                // Buka URL Snap di Browser
+                                val intent = Intent(Intent.ACTION_VIEW)
+                                intent.data = android.net.Uri.parse(redirectUrl)
+                                startActivity(intent)
+                                
+                                Toast.makeText(this@PembayaranActivity, "Silakan selesaikan pembayaran di browser lalu klik Selesai", Toast.LENGTH_LONG).show()
                             } else {
-                                Toast.makeText(this@PembayaranActivity, "Gagal mendapatkan QR Code", Toast.LENGTH_SHORT).show()
+                                Toast.makeText(this@PembayaranActivity, "Gagal mendapatkan URL Pembayaran", Toast.LENGTH_SHORT).show()
                             }
                         } else {
                             Toast.makeText(this@PembayaranActivity, "Error API: ${response.code()}", Toast.LENGTH_SHORT).show()

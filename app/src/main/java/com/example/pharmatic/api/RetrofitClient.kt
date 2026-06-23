@@ -8,7 +8,7 @@ import retrofit2.converter.gson.GsonConverterFactory
 
 object RetrofitClient {
     // Gunakan Sandbox untuk keperluan testing/Tugas Kuliah
-    private const val BASE_URL = "https://api.sandbox.midtrans.com/"
+    private const val BASE_URL = "https://app.sandbox.midtrans.com/"
 
     private val client = OkHttpClient.Builder().apply {
         addInterceptor(Interceptor { chain ->

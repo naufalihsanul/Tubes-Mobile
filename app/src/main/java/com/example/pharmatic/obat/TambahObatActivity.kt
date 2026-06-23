@@ -20,7 +20,9 @@ import com.example.pharmatic.model.Obat
 import com.example.pharmatic.viewmodel.ObatViewModel
 import com.example.pharmatic.viewmodel.SuplierViewModel
 
+import java.io.File
 import java.util.Calendar
+import java.util.UUID
 
 class TambahObatActivity : AppCompatActivity() {
     private lateinit var obatViewModel: ObatViewModel
@@ -31,9 +33,13 @@ class TambahObatActivity : AppCompatActivity() {
     // Image Picker Launcher
     private val pickImageLauncher = registerForActivityResult(ActivityResultContracts.GetContent()) { uri: Uri? ->
         if (uri != null) {
-            selectedImageUri = uri
-            val ivPreview = findViewById<ImageView>(R.id.ivPreviewObat)
-            ivPreview.setImageURI(uri)
+            // Salin gambar ke penyimpanan internal agar tetap bisa diakses setelah restart
+            val savedUri = copyImageToInternalStorage(uri)
+            if (savedUri != null) {
+                selectedImageUri = savedUri
+                val ivPreview = findViewById<ImageView>(R.id.ivPreviewObat)
+                ivPreview.setImageURI(savedUri)
+            }
         }
     }
 
@@ -141,6 +147,22 @@ class TambahObatActivity : AppCompatActivity() {
             obatViewModel.insert(obat)
             Toast.makeText(this, "Obat $nama berhasil disimpan!", Toast.LENGTH_SHORT).show()
             finish() // Kembali ke dashboard admin setelah simpan
+        }
+    }
+
+    private fun copyImageToInternalStorage(sourceUri: Uri): Uri? {
+        return try {
+            val inputStream = contentResolver.openInputStream(sourceUri) ?: return null
+            val fileName = "obat_${UUID.randomUUID()}.jpg"
+            val file = File(filesDir, fileName)
+            file.outputStream().use { outputStream ->
+                inputStream.copyTo(outputStream)
+            }
+            inputStream.close()
+            Uri.fromFile(file)
+        } catch (e: Exception) {
+            e.printStackTrace()
+            null
         }
     }
 }

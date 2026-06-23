@@ -39,11 +39,23 @@ class SuplierAdapter(
         holder.alamat.text = suplier.alamat
         holder.telp.text = suplier.telepon
 
+        // Muat logo suplier dengan aman
+        var logoLoaded = false
         if (!suplier.logoUri.isNullOrEmpty()) {
-            holder.ivLogo.setImageURI(Uri.parse(suplier.logoUri))
-            holder.ivLogo.layoutParams.width = ViewGroup.LayoutParams.MATCH_PARENT
-            holder.ivLogo.layoutParams.height = ViewGroup.LayoutParams.MATCH_PARENT
-        } else {
+            try {
+                val uri = Uri.parse(suplier.logoUri)
+                val file = java.io.File(uri.path ?: "")
+                if (file.exists()) {
+                    holder.ivLogo.setImageURI(null)
+                    holder.ivLogo.setImageURI(uri)
+                    holder.ivLogo.layoutParams.width = ViewGroup.LayoutParams.MATCH_PARENT
+                    holder.ivLogo.layoutParams.height = ViewGroup.LayoutParams.MATCH_PARENT
+                    logoLoaded = true
+                }
+            } catch (_: Exception) { }
+        }
+
+        if (!logoLoaded) {
             holder.ivLogo.setImageResource(R.drawable.delivery)
             holder.ivLogo.layoutParams.width = holder.itemView.context.resources.displayMetrics.density.toInt() * 28
             holder.ivLogo.layoutParams.height = holder.itemView.context.resources.displayMetrics.density.toInt() * 28
