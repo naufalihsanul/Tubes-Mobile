@@ -16,7 +16,7 @@ interface ObatDao {
     suspend fun insert(obat: Obat): Long
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
-    suspend fun insertAll(obatList: List<Obat>)
+    fun insertAll(obatList: List<Obat>)
 
     @Update
     suspend fun update(obat: Obat)
