@@ -64,7 +64,7 @@ Aplikasi ini punya dua hak akses (role) utama:
 Aplikasi sudah memiliki data awal bawaan (*database seeding*) untuk uji coba login:
 
 * **Admin**: Username `admin` | Password `admin`
-* **Kasir**: Username `kasir` | Password `1234` (bisa juga pakai username `budi_kasir` atau `siti22` dengan password yang sama `1234`)
+* **Kasir**: Username `kasir` | Password `1234`
 
 ---
 *Semoga bermanfaat!* 🏥💚
